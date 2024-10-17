@@ -2,9 +2,9 @@
 
 /** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
+/** @var LoginForm $loginForm */
 
-/** @var app\models\LoginForm $model */
-
+use app\models\forms\LoginForm;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>Please fill out the following fields to login:</p>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-12">
 
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($loginForm, 'username')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($loginForm, 'password')->passwordInput() ?>
 
-            <?= $form->field($model, 'rememberMe')->checkbox([
+            <?= $form->field($loginForm, 'rememberMe')->checkbox([
                 'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
             ]) ?>
 
@@ -44,11 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <?php ActiveForm::end(); ?>
-
-            <div style="color:#999;">
-                You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-            </div>
 
         </div>
     </div>

@@ -12,12 +12,29 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'queue' => [
+            'class' => \yii\queue\Queue::class,
+            'redis' => 'redis',
+            'channel' => 'queue',
+            'as log' => \yii\queue\LogBehavior::class,
+        ],
+        'redis' => [
+            'class' => \yii\redis\Connection::class,
+            'hostname' => 'redis',
+            'port' => 6379,
+            'database' => 0,
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'hpifLrTdg6y7ukSvOfhjTTnp4XmYFwjk',
+            'cookieValidationKey' => 'TWVdvY0l2hsCpVfzvDS7szrvlCj5GeFK',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => \yii\redis\Cache::class,
+            'redis' => [
+                'hostname' => 'redis',
+                'port' => 6379,
+                'database' => 0,
+            ],
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -42,14 +59,20 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<code:[A-Za-z0-9_-]{1,5}>' => 'shorturl/redirect',
+                '' => 'shorturl/index',
+                'app/create' => 'shorturl/create',
+                'app/statistics/<id:\d+>' => 'shorturl/statistics',
+//                'app/stats' => 'shorturl/stats',
+                'app/login' => 'site/login',
+                'app/logout' => 'site/logout',
+                'app/signup' => 'site/signup',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
