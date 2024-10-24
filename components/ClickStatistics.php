@@ -59,13 +59,13 @@ class ClickStatistics
                 ->one();
 
             if ($existingStat) {
-                $existingStat->clicks += 1;
+                $existingStat->clicks += $clicks;
                 $existingStat->save(false);
             } else {
                 $newStat = new ShortUrlStatistics();
                 $newStat->short_url_id = $shortUrlId;
                 $newStat->clicked_at = $clickedAt;
-                $newStat->clicks = 1;
+                $newStat->clicks = $clicks;
                 $newStat->save();
             }
 
